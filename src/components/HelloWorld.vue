@@ -1,5 +1,9 @@
 <template>
   <div class="hello">
+    <h1>{{ aaa }}</h1>
+    <a href="/api/test">tools</a><br>
+    <button @click="getTools">toolsAPIを実行</button>
+    <h1>{{ toolsResult }}</h1>
     <h1>{{ msg }}</h1>
     <p>
       For a guide and recipes on how to configure / customize this project,<br>
@@ -31,11 +35,32 @@
 </template>
 
 <script>
+    const url = '/api/test'
+    const options = {
+      method: 'get'
+    }
+
+
+
 export default {
   name: 'HelloWorld',
   props: {
     msg: String
-  }
+  },
+  data(){
+    return{
+      aaa: 'test',
+      toolsResult: ''
+    }
+  },
+      methods:{
+        async getTools(){
+          const response = await fetch(url, options)
+          .then((response) => response.text())
+          console.log(response)
+          this.toolsResult = response
+        }
+      }
 }
 </script>
 
